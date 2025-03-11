@@ -2,7 +2,7 @@ import allure
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from locators.base_page_locators import BasePageLocators
-import urls
+from urls import Urls
 
 class BasePage:
 
@@ -16,6 +16,12 @@ class BasePage:
 
     def get_current_url(self):
         return self.driver.current_url
+
+    def is_on_base_url(self):
+        return self.driver.current_url == Urls.BASE_URL
+
+    def is_at_dzen_url(self):
+        return self.driver.current_url == Urls.DZEN_URL
 
 
     def scroll_to_element(self, locator):
@@ -39,9 +45,21 @@ class BasePage:
 
         all_tabs = self.driver.window_handles
         self.driver.switch_to.window(all_tabs[-1])
-        return WebDriverWait(self.driver, timeout=20).until(EC.url_to_be(urls.URLS.get('DZEN_URL')))
+        return WebDriverWait(self.driver, timeout=20).until(EC.url_to_be(Urls.BASE_URL))
 
 
     @allure.step('Нажать на  кнопку "Самокат ')
     def check_click_button_scooter(self):
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located(BasePageLocators.BUTTON_LINK_SCOOTER)).click()
+
+    @allure.step('Ожидание элемента видимости')
+    def wait_for_element_visibility(self, locator, timeout=5):
+        return WebDriverWait(self.driver, timeout).until(EC.visibility_of_element_located(locator))
+
+    @allure.step('Клик на элемент {locator}')
+    def click_element(self, locator):
+        self.wait_for_element_visibility(locator).click()
+
+    @allure.step('Получаем текст элемента {locator}')
+    def get_element_text(self, locator):
+        return self.wait_for_element_visibility(locator).text

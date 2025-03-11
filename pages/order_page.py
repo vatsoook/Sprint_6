@@ -43,7 +43,6 @@ class OrderPage(BasePage):
         self.driver.find_element(*OrderPageLocators.SELECT_DATE).click()
 
     @allure.step('Выбираем срок аренды:  {rental_period}')
-
     def check_rental_period(self, rental_period):
 
         self.driver.find_element(*OrderPageLocators.INPUT_RENTAL_PERIOD).click()
@@ -55,7 +54,6 @@ class OrderPage(BasePage):
 
 
     @allure.step('Выбираем цвет самоката: {color}')
-
     def check_scooter_color(self, color):
         match color:
             case 'black':

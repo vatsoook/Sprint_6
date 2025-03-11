@@ -2,7 +2,7 @@ from selenium.webdriver.common.by import By
 
 class HomePageLocators:
 
-    BUTTON_ORDER_BUTTON_OF_THE_PAGE = (By.XPATH, '//div[4]//button[1][text()="Заказать"]')
+    BUTTON_ORDER_BUTTON_OF_THE_PAGE = (By.XPATH, '//button[@class="Button_Button__ra12g Button_Middle__1CSJM"]')
     TEXT_QUESTION_ABOUT_IMPORTANT = (By.XPATH,'//div[text()="Вопросы о важном"]')
 
     BUTTON_QUESTION_0  = (By.ID, 'accordion__heading-0')
